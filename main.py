@@ -1,3 +1,4 @@
+# coding=utf-8
 import sys
 
 from PyQt5.QtWidgets import QApplication, QAction, qApp
@@ -8,7 +9,7 @@ from utiles.Funciones import LeerConf
 from vistas.login import Login
 from vistas.ppal import Ui_MainWindow
 from utiles.Menu import GeneraMenu
-from vistas.aberturas import Ui_Aberturas
+from vistas.Ventas import Ui_Dialog
 
 class Ventana(Ui_MainWindow):
 
@@ -49,6 +50,7 @@ class Ventana(Ui_MainWindow):
         print("ID Menu {}".format(idMenu))
         if Archivo:
             ventana = eval(Archivo)
+            #ventana = Ui_Dialog()
             ventana.exec_()
         else:
             Ventanas.showAlert("Error", u"Opcion de menu no establecida")

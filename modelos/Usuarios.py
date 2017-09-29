@@ -14,7 +14,7 @@ class Usuario(SQL):
         idUsuario = None
         cursor = SQL().BuscaUno(self.tabla, self.campo, usuario)
 
-        if cursor['CLAVE'] == password.upper():
+        if cursor['CLAVE'].strip() == password.upper().strip():
             lRetorno = True
             idUsuario = cursor['USU_ID']
 

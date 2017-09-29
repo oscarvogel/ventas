@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>934</width>
+    <height>642</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout_4">
+     <item row="0" column="0">
+      <widget class="QLabel" name="lblTitulo">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QTableView" name="tableView"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="lineEditCodBarra"/>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="1">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="5" column="1">
+        <widget class="QLabel" name="lblPercepDGR">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="lblIVA">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="lblSubtotal">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="2">
+        <widget class="QLineEdit" name="lineEditTotal"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblFecha">
+         <property name="text">
+          <string>Fecha comprobante</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="2">
+        <widget class="QDateEdit" name="dateEdit"/>
+       </item>
+       <item row="2" column="0" colspan="3">
+        <widget class="QGraphicsView" name="graphicsView"/>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="lblTotal">
+         <property name="text">
+          <string>Total</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QPushButton" name="btnSalir">
+         <property name="text">
+          <string>&amp;Salir</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="lineEditSubTotal"/>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLineEdit" name="lineEditIVA"/>
+       </item>
+       <item row="5" column="2">
+        <widget class="QLineEdit" name="lineEditPercepDGR"/>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblCliente">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="lblInfo">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>lineEditCodBarra</tabstop>
+  <tabstop>tableView</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>graphicsView</tabstop>
+  <tabstop>lineEditTotal</tabstop>
+  <tabstop>btnSalir</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

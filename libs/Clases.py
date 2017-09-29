@@ -1,9 +1,12 @@
 # coding=utf-8
+import datetime
+
 from PyQt5 import QtCore
 
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QFont, QIcon
-from PyQt5.QtWidgets import QDialog, QPushButton, QDesktopWidget, QLabel, QLineEdit, QComboBox
+from PyQt5.QtWidgets import QDialog, QPushButton, QDesktopWidget, QLabel, QLineEdit, QComboBox, QDateEdit, QTableView, \
+    QTableWidget, QTableWidgetItem
 
 from db.SqlComandos import SQL
 
@@ -71,8 +74,18 @@ class Etiqueta(QLabel):
         super().__init__(parent)
         self.setText(texto)
         font = QFont()
-        font.setPointSizeF(12)
+        if 'tamanio' in kwargs:
+            font.setPointSizeF(kwargs['tamanio'])
+        else:
+            font.setPointSizeF(12)
+
         self.setFont(font)
+
+class EtiquetaRoja(Etiqueta):
+
+    def __init__(self, parent=None, texto='', **kwargs):
+        super().__init__(parent, texto, **kwargs)
+        self.setStyleSheet('color:red')
 
 class EntradaTexto(QLineEdit):
 
@@ -119,3 +132,34 @@ class ComboSQL(QComboBox):
     def GetDato(self):
         return self.currentData()
 
+
+class Fecha(QDateEdit):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        font = QFont()
+        font.setPointSizeF(12)
+        self.setFont(font)
+
+    def setFecha(self, fecha=datetime.datetime.today()):
+        self.setDate(fecha)
+
+
+class Grilla(QTableWidget):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        font = QFont()
+        font.setPointSizeF(12)
+        self.setFont(font)
+
+    def ArmaCabeceras(self, cabeceras=None):
+
+        if cabeceras:
+            self.setColumnCount(len(cabeceras))
+
+            for col in range(0, len(cabeceras)):
+                self.setHorizontalHeaderItem(col, QTableWidgetItem(cabeceras[col]))
+
+        self.resizeRowsToContents()
+        self.resizeColumnsToContents()
