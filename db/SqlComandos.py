@@ -48,6 +48,8 @@ class SQL(object):
         try:
             cur.execute(sql)
             data = cur.fetchone()
+            if not data:
+                print("Query {}".format(sql))
         except mdb.Error as e:
             Ventanas.showAlert("Error", sql)
         return data
@@ -162,3 +164,18 @@ class SQL(object):
         self.query += " , ".join(k for k in orders)
 
         return self
+
+    def One(self):
+
+        if not self.db:
+            self.db = ConectarDB().GetDb()
+
+        data = None
+        cur = self.db.cursor(mdb.cursors.DictCursor)
+        try:
+            cur.execute(self.query)
+            data = cur.fetchone()
+        except mdb.Error as e:
+            Ventanas.showAlert("Error", "Error al realizar la consulta {}".format(self.query))
+
+        return data

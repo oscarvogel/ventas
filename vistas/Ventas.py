@@ -1,20 +1,38 @@
 # -*- coding: utf-8 -*-
-import datetime
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+import winsound
+from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtWidgets import QTableWidgetItem
+
 from libs.Clases import Formulario, EtiquetaRoja, EntradaTexto, BotonCerrarFormulario, Etiqueta, Fecha, Grilla
 
-from modelos import Clientes
+from modelos import Clientes, Articulo
+from utiles import Ventanas, Facturacion
+from vistas import precio_articulo
+
 
 class Ui_Dialog(Formulario):
 
     cliente = 1
+    lBalanza = False
+    facturacion = None
+    cursorart = None
+    nCant = 0.0000
+    nPrecio = 0.0000
 
     def __init__(self):
         Formulario.__init__(self)
+        self.setWindowTitle("Ventas")
         self.setupUi(self)
+        self.facturacion = Facturacion.facturacion()
+
+    def keyPressEvent(self, event):
+        teclas = [QtCore.Qt.Key_Escape, QtCore.Qt.Key_Enter]
+        if event.key() not in teclas:
+            super(Formulario, self).keyPressEvent(event)
 
     def setupUi(self, Dialog):
+
         Dialog.setObjectName("Dialog")
         Dialog.resize(934, 642)
         self.horizontalLayout = QtWidgets.QHBoxLayout(Dialog)
@@ -31,7 +49,9 @@ class Ui_Dialog(Formulario):
         self.tableView = Grilla(Dialog)
         self.tableView.setObjectName("tableView")
         self.gridLayout_3.addWidget(self.tableView, 0, 0, 1, 1)
-        self.lineEditCodBarra = EntradaTexto(Dialog, placeholderText='Ingrese cantidad y codigo de barra')
+        self.lineEditCodBarra = EntradaTexto(Dialog,
+                                             placeholderText='Ingrese cantidad y codigo de barra',
+                                             tamanio=15)
         self.lineEditCodBarra.setObjectName("lineEditCodBarra")
         self.gridLayout_3.addWidget(self.lineEditCodBarra, 1, 0, 1, 1)
         self.gridLayout_4.addLayout(self.gridLayout_3, 1, 0, 1, 1)
@@ -49,7 +69,7 @@ class Ui_Dialog(Formulario):
         self.dateEdit.setEnabled(False)
 
         self.gridLayout.addWidget(self.dateEdit, 1, 1, 1, 2)
-        self.graphicsView = QtWidgets.QGraphicsView(Dialog)
+        self.graphicsView = Etiqueta(Dialog, texto='Imagen')
         self.graphicsView.setObjectName("graphicsView")
         self.gridLayout.addWidget(self.graphicsView, 2, 0, 1, 3)
 
@@ -81,6 +101,10 @@ class Ui_Dialog(Formulario):
         Dialog.setTabOrder(self.graphicsView, self.lineEditTotal)
         Dialog.setTabOrder(self.lineEditTotal, self.btnSalir)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+        self.btnSalir.clicked.connect(self.Cerrar)
+        #self.lineEditCodBarra.textChanged.connect(self.CargaArticulo)
+        self.lineEditCodBarra.returnPressed.connect(self.CargaPrecioArticulo)
 
         self.ArmaCabeceraGrilla()
 
@@ -117,3 +141,103 @@ class Ui_Dialog(Formulario):
 
     def ArmaCabeceraGrilla(self):
         self.tableView.ArmaCabeceras(['Cant.', 'UN', 'Detalle', 'Unitario', 'Total'])
+
+    def CargaPrecioArticulo(self):
+        codigobarra = self.lineEditCodBarra.text()
+        self.lBalanza = False
+
+        if codigobarra.startswith("+"):
+            monto = codigobarra[1:]
+            if float(monto) >= self.lineEditTotal.text():
+                self.Procesatotales()
+            else:
+                Ventanas.showAlert("El monto es menor al total de la compra")
+                winsound.PlaySound("*", winsound.SND_ASYNC)
+
+        #si tiene incluido el * indica que la cantidad es mas que uno
+        if codigobarra.find("*") == -1:
+            articulo = codigobarra
+            self.nCant = "1"
+        else:
+            articulo = codigobarra[codigobarra.find("*") + 1:]
+            self.nCant = codigobarra[:codigobarra.find("*")]
+
+
+        self.cursorart = Articulo.Articulo().BuscaUno(campo = 'CodBarraArt', valorbuscado=articulo)
+        if not self.cursorart:
+            self.cursorart = Articulo.Articulo().BuscaUno(campo='PLU', valorbuscado=codigobarra[1:7])
+            if not self.cursorart:
+                winsound.PlaySound("*", winsound.SND_ASYNC)
+                return
+            else:
+                self.lBalanza = True
+
+        if Articulo.Articulo().ModificaPrecios(self.cursorart['idArticulo']) or \
+                        self.facturacion.CalculaPrecio(self.cursorart['idArticulo']) == 0:
+            #carga el precio del articulo
+            _ventana = precio_articulo.Ui_Dialog()
+            _ventana.exec_()
+            self.nPrecio = _ventana.lineEdit.text()
+        else:
+            self.nPrecio = self.facturacion.nPrecioPub
+        self.CargaArticulo()
+        self.SumaTodo()
+        self.lineEditCodBarra.setText("")
+        self.lblTitulo.setText("Ultimo articulo: " + self.cursorart['NombreTicket'].strip())
+        if self.cursorart['Imagen'].strip() != '':
+            image = QtGui.QImage(self.cursorart['Imagen'].strip())
+        else:
+            image = QtGui.QImage('imagenes\market.png')
+
+        if not image.isNull():
+            self.pixmap = QtGui.QPixmap(image)
+            self.graphicsView.setScaledContents(True)
+            self.graphicsView.setPixmap(self.pixmap)
+            self.graphicsView.setMinimumSize(1,1)
+            self.graphicsView.installEventFilter(self)
+            #self.graphicsView.setScaledContents(True)
+
+    def eventFilter(self, source, event):
+        if (source is self.graphicsView and event.type() == QtCore.QEvent.Resize):
+            # re-scale the pixmap when the label resizes
+            self.graphicsView.setPixmap(self.pixmap.scaled(
+                self.graphicsView.size(), QtCore.Qt.KeepAspectRatio,
+                QtCore.Qt.SmoothTransformation))
+        return super(Formulario, self).eventFilter(source, event)
+
+    def CargaArticulo(self):
+        fila = self.tableView.rowCount() + 1
+        self.tableView.setRowCount(fila)
+        print("Fila {}".format(fila))
+        self.tableView.setItem(fila - 1, 0, QTableWidgetItem(self.nCant))
+        self.tableView.setItem(fila - 1, 1, QTableWidgetItem(self.cursorart['Unidad']))
+        self.tableView.setItem(fila - 1, 2, QTableWidgetItem(self.cursorart['NombreTicket'].strip()))
+        self.tableView.setItem(fila - 1, 3, QTableWidgetItem(str(self.nPrecio)))
+        self.tableView.setItem(fila - 1, 4, QTableWidgetItem(str(float(self.nPrecio) * float(self.nCant))))
+
+        self.tableView.resizeColumnsToContents()
+
+    def SumaTodo(self):
+        nTotal = 0.00
+        data = self.RecorreTableView()
+        for x in data:
+            nTotal += float(x[3])
+
+        self.lineEditTotal.setText(str(nTotal))
+
+
+    def RecorreTableView(self):
+        data = []
+        model = self.tableView.model()
+        for row in range(model.rowCount()):
+            data.append([])
+            for column in range(model.columnCount()):
+                index = model.index(row, column)
+                # We suppose data are strings
+                data[row].append(model.data(index))
+        return data
+
+
+    def Procesatotales(self):
+        pass
+
