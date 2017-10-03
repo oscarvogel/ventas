@@ -6,7 +6,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QDialog, QPushButton, QDesktopWidget, QLabel, QLineEdit, QComboBox, QDateEdit, QTableView, \
-    QTableWidget, QTableWidgetItem
+    QTableWidget, QTableWidgetItem, QSpinBox, QDoubleSpinBox
 
 from db.SqlComandos import SQL
 
@@ -45,6 +45,9 @@ class Boton(QPushButton):
         font = QFont()
         font.setPointSizeF(12)
         self.setFont(font)
+        if not texto.startswith("&"):
+            texto = "&" + texto
+
         self.setText(texto)
         if imagen:
             icono = QIcon(imagen)
@@ -59,6 +62,8 @@ class BotonCerrarFormulario(Boton):
         imagen = 'imagenes\log-out.png'
         tamanio = QSize(32,32)
         super().__init__(parent, texto, imagen, tamanio)
+        self.setDefault(False)
+
 
 class BotonAceptar(Boton):
 
@@ -94,13 +99,18 @@ class EntradaTexto(QLineEdit):
         super().__init__(parent)
         self.ventana = parent
         font = QFont()
-        font.setPointSizeF(12)
+        if 'tamanio' in kwargs:
+            font.setPointSizeF(kwargs['tamanio'])
+        else:
+            font.setPointSizeF(12)
         self.setFont(font)
 
         if 'tooltip' in kwargs:
             self.setToolTip(kwargs['tooltip'])
         if 'placeholderText' in kwargs:
             self.setPlaceholderText(kwargs['placeholderText'])
+
+
 
 class ComboSQL(QComboBox):
 
@@ -163,3 +173,8 @@ class Grilla(QTableWidget):
 
         self.resizeRowsToContents()
         self.resizeColumnsToContents()
+
+class Spinner(QDoubleSpinBox):
+
+    def __init__(self, parent=None, *args, **kwargs):
+        super().__init__(parent)

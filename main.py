@@ -1,6 +1,8 @@
 # coding=utf-8
+import functools
 import sys
 
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QAction, qApp
 
 from db.Conectar import ConectarDB
@@ -21,6 +23,7 @@ class Ventana(Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         print("Usuario {}".format(LeerConf("usuario")))
         ConectarDB().Iniciar()
+        self.ArmaToolBar()
         self.setWindowTitle("Sistema Ventas")
         self.showMaximized()
 
@@ -50,10 +53,22 @@ class Ventana(Ui_MainWindow):
         print("ID Menu {}".format(idMenu))
         if Archivo:
             ventana = eval(Archivo)
-            #ventana = Ui_Dialog()
             ventana.exec_()
         else:
             Ventanas.showAlert("Error", u"Opcion de menu no establecida")
+
+    def ArmaToolBar(self):
+        exitAct = QAction(QIcon('imagenes\log-out.png'), 'Salir', self)
+        exitAct.setShortcut('Ctrl+Q')
+        exitAct.triggered.connect(qApp.quit)
+
+        vtaAct = QAction(QIcon('imagenes\salda_contado.png'), 'Venta', self)
+        vtaAct.setShortcut('Ctrl+F10')
+        vtaAct.triggered.connect(functools.partial(self.SeleccionaMenu, 370, "Ui_Dialog()"))
+
+        self.toolbar = self.addToolBar('Exit')
+        self.toolbar.addAction(vtaAct)
+        self.toolbar.addAction(exitAct)
 
 if __name__ == "__main__":
     # Instancia para iniciar una aplicación

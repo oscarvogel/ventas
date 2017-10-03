@@ -49,6 +49,15 @@
          </property>
         </widget>
        </item>
+       <item row="5" column="2">
+        <widget class="QLineEdit" name="lineEditPercepDGR"/>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLineEdit" name="lineEditIVA"/>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="lineEditSubTotal"/>
+       </item>
        <item row="3" column="1">
         <widget class="QLabel" name="lblSubtotal">
          <property name="text">
@@ -69,9 +78,6 @@
        <item row="1" column="1" colspan="2">
         <widget class="QDateEdit" name="dateEdit"/>
        </item>
-       <item row="2" column="0" colspan="3">
-        <widget class="QGraphicsView" name="graphicsView"/>
-       </item>
        <item row="6" column="1">
         <widget class="QLabel" name="lblTotal">
          <property name="text">
@@ -86,14 +92,8 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="2">
-        <widget class="QLineEdit" name="lineEditSubTotal"/>
-       </item>
-       <item row="4" column="2">
-        <widget class="QLineEdit" name="lineEditIVA"/>
-       </item>
-       <item row="5" column="2">
-        <widget class="QLineEdit" name="lineEditPercepDGR"/>
+       <item row="2" column="0" colspan="3">
+        <widget class="QGraphicsView" name="graphicsView"/>
        </item>
       </layout>
      </item>
