@@ -7,8 +7,8 @@ from PyQt5.QtWidgets import QTableWidgetItem
 from libs.Clases import Formulario, EtiquetaRoja, EntradaTexto, BotonCerrarFormulario, Etiqueta, Fecha, Grilla
 
 from modelos import Clientes, Articulo
-from utiles import Ventanas, Facturacion
-from vistas import precio_articulo
+from utiles import Ventanas, Facturacion, busqueda
+from vistas import precio_articulo, carga_cliente_venta
 
 
 class Ui_Dialog(Formulario):
@@ -29,7 +29,21 @@ class Ui_Dialog(Formulario):
     def keyPressEvent(self, event):
         teclas = [QtCore.Qt.Key_Escape, QtCore.Qt.Key_Enter]
         if event.key() not in teclas:
-            super(Formulario, self).keyPressEvent(event)
+            if event.key() == QtCore.Qt.Key_F2:
+                ventana = busqueda.Ui_MainWindow()
+                ventana.tabla = "articulos"
+                ventana.cOrden = "Nombre"
+                ventana.campos = ["idArticulo", "Nombre", "CodBarraArt"]
+                ventana.camposTabla = ["idArticulo", "Nombre", "CodBarraArt"]
+                ventana.campoRetorno = "CodBarraArt"
+                ventana.CargaDatos()
+                ventana.exec_()
+                if ventana.lRetval:
+                    self.lineEditCodBarra.setText(ventana.ValorRetorno)
+            elif event.key() == QtCore.Qt.Key_F5:
+                ventana = carga_cliente_venta.Ui_dlgCliente()
+                ventana.exec_()
+            #super(Formulario, self).keyPressEvent(event)
 
     def setupUi(self, Dialog):
 
@@ -78,7 +92,7 @@ class Ui_Dialog(Formulario):
         self.lblTotal = EtiquetaRoja(Dialog, texto='Total')
         self.lblTotal.setObjectName("lblTotal")
         self.gridLayout.addWidget(self.lblTotal, 7, 1, 1, 1)
-        self.lineEditTotal = EntradaTexto(Dialog)
+        self.lineEditTotal = EntradaTexto(Dialog, alineacion='DERECHA', tamanio=15)
         self.lineEditTotal.setObjectName("lineEditTotal")
         self.lineEditTotal.setEnabled(False)
         self.gridLayout.addWidget(self.lineEditTotal, 7, 2, 1, 1)
@@ -223,7 +237,7 @@ class Ui_Dialog(Formulario):
         for x in data:
             nTotal += float(x[3])
 
-        self.lineEditTotal.setText(str(nTotal))
+        self.lineEditTotal.setText(str(round(nTotal, 3)))
 
 
     def RecorreTableView(self):

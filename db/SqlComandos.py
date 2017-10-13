@@ -179,3 +179,22 @@ class SQL(object):
             Ventanas.showAlert("Error", "Error al realizar la consulta {}".format(self.query))
 
         return data
+
+    def Limit(self, limite=50):
+        self.query += " limit {}".format(limite)
+
+        return self
+
+    def Like(self, condiciones=None):
+
+        if self.query.upper().find("WHERE") != -1:
+            self.query += " and ".join(k + " like '%{}%' ".format(v) for k, v in condiciones.items())
+        else:
+            self.query += " where "
+            self.query += " and ".join(k + " like '%{}%' ".format(v) for k, v in condiciones.items())
+
+        return self
+
+    def __str__(self):
+
+        return self.query

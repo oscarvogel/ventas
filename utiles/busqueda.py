@@ -17,6 +17,8 @@ class Ui_MainWindow(Formulario):
     camposTabla = None
     campoRetorno = None
     colRetorno = 0
+    colBusqueda = 0
+    campoRetornoDetalle = ''
 
     def __init__(self):
         Formulario.__init__(self)
@@ -62,6 +64,7 @@ class Ui_MainWindow(Formulario):
         self.lRetval = True
         self.ValorRetorno = self.tableView.currentItem().text()
         self.ValorRetorno = self.tableView.item(self.tableView.currentRow(), self.colRetorno).text()
+        self.campoRetornoDetalle  = self.tableView.item(self.tableView.currentRow(), self.colBusqueda).text()
         print("Seleccionado {} columna {} fila {}".format(self.ValorRetorno,
                                                           self.tableView.currentColumn(),
                                                           self.tableView.currentRow()) )
@@ -92,15 +95,29 @@ class Ui_MainWindow(Formulario):
         for col in range(0, len(self.campos)):
             if self.campos[col] == self.campoRetorno:
                 self.colRetorno = col
+            if self.campos[col] == self.campoBusqueda:
+                self.colBusqueda = col
+
             self.tableView.setHorizontalHeaderItem(col, QTableWidgetItem(self.campos[col].capitalize()))
 
         fila = 0
         for row in rows:
             for col in range(0, len(self.campos)):
-                self.tableView.setItem(fila, col, QTableWidgetItem(row[self.campos[col]]))
+                if isinstance(row[self.campos[col]], int):
+                    item = QTableWidgetItem(str(row[self.campos[col]]))
+                else:
+                    item = QTableWidgetItem(QTableWidgetItem(row[self.campos[col]]))
+
+                item.setFlags(QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled)
+                self.tableView.setItem(fila, col, item)
+
             fila += 1
         self.tableView.resizeRowsToContents()
         self.tableView.resizeColumnsToContents()
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Down:
+            self.tableView.setFocus()
 
 if __name__ == "__main__":
     import sys

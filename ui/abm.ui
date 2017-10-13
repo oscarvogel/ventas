@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lblTitulo">
      <property name="text">
       <string>TextLabel</string>
      </property>
@@ -24,7 +24,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabLista">
       <attribute name="title">
@@ -32,21 +32,29 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
+        <widget class="QLineEdit" name="lineEditBusqueda"/>
+       </item>
+       <item row="1" column="0">
         <widget class="QTableView" name="tableView"/>
        </item>
-       <item row="0" column="1">
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="btnAgregar">
+           <property name="text">
+            <string>Agregar</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QPushButton" name="btnEditar">
            <property name="text">
             <string>&amp;Editar</string>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnAgregar">
-           <property name="text">
-            <string>Agregar</string>
+           <property name="icon">
+            <iconset>
+             <activeon>../imagenes/modificar.png</activeon>
+            </iconset>
            </property>
           </widget>
          </item>
@@ -75,11 +83,52 @@
       <attribute name="title">
        <string>Tab 2</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QGridLayout" name="grdDatos">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEdit"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="grdBotones">
+         <item row="0" column="0">
+          <widget class="QPushButton" name="btnAceptar">
+           <property name="text">
+            <string>&amp;Aceptar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="btnCancelar">
+           <property name="text">
+            <string>&amp;Cancelar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditBusqueda</tabstop>
+  <tabstop>btnEditar</tabstop>
+  <tabstop>btnBorrar</tabstop>
+  <tabstop>btnCerrar</tabstop>
+  <tabstop>tableView</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

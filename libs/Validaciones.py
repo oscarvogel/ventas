@@ -68,27 +68,27 @@ class ValidaConTexto(Validaciones):
         data = SQL().BuscaUno(self.tabla, self.campoRetorno, self.lineEdit.text().zfill(self.largo))
         if data:
             self.lblNombre.setText(data[self.campoNombre])
-
-
-
 class ValidaCliente(Validaciones):
 
     ventana = None
     valor = None
+    nombre = None
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_F2:
             ventana = Ui_MainWindow()
             ventana.tabla = "clientes"
             ventana.cOrden = "Nombre"
-            ventana.campos = ['CLIENTE','NOMBRE','IDCLIENTE']
-            ventana.camposTabla = ['concat(zona,cliente) CLIENTE', 'NOMBRE', 'IDCLIENTE']
-            ventana.campoRetorno = 'CLIENTE'
+            ventana.campos = ['idCliente','Nombre','Domicilio']
+            ventana.camposTabla = ['idCliente', 'Nombre', 'Domicilio']
+            ventana.campoRetorno = 'idCliente'
+            ventana.campoBusqueda = "Nombre"
             ventana.CargaDatos()
             ventana.exec_()
             event.accept()
             if ventana.lRetval:
                 self.setText(ventana.ValorRetorno)
+                self.nombre = ventana.campoRetornoDetalle
             QLineEdit.keyPressEvent(self, event)
         else:
             QLineEdit.keyPressEvent(self, event)
@@ -141,11 +141,10 @@ class ValidaPago(ValidaConTexto):
 
 class CboPago(ComboSQL):
 
-    tabla = 'pagos'
-    campo1 = 'DETALLE'
-    campovalor = 'PAGO'
-    cOrden = 'detalle'
-    condicion = 'lista = 1 or lista = " "'
+    tabla = 'formapago'
+    campo1 = 'Detalle'
+    campovalor = 'idFormaPago'
+    cOrden = 'Detalle'
 
 
 class CboUsuario(ComboSQL):
@@ -157,3 +156,10 @@ class CboUsuario(ComboSQL):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
+class CboTipoResp(ComboSQL):
+
+    tabla = 'tiporesp'
+    campo1 = 'Nombre'
+    campovalor = 'idTipoResp'
+    cOrden = 'Nombre'

@@ -12,6 +12,7 @@ from vistas.login import Login
 from vistas.ppal import Ui_MainWindow
 from utiles.Menu import GeneraMenu
 from vistas.Ventas import Ui_Dialog
+from vistas.clientes import ClientesABM
 
 class Ventana(Ui_MainWindow):
 
