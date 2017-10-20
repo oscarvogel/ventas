@@ -17,6 +17,7 @@ class Ui_MainWindow(Formulario):
     camposTabla = None
     campoRetorno = None
     colRetorno = 0
+    condiciones = ''
 
     def __init__(self):
         Formulario.__init__(self)
@@ -75,19 +76,33 @@ class Ui_MainWindow(Formulario):
 
     def CargaDatos(self):
         textoBusqueda = self.lineEdit.text()
+
+        if self.condiciones and textoBusqueda:
+            if not self.condiciones.endswith(" and "):
+                self.condiciones += " and "
+        else:
+            if self.condiciones.endswith(" and "):
+                self.condiciones = self.condiciones[:-4]
+
         if not self.camposTabla:
             self.camposTabla = self.campos
+
         if textoBusqueda:
             rows = SQL().BuscaTodo(tabla=self.tabla,
                                    cOrden=self.cOrden,
                                    limite=self.limite,
-                                   cFiltro= self.campoBusqueda + " like '%" + textoBusqueda + "%'",
+                                   cFiltro= self.condiciones +
+                                            self.campoBusqueda + " like '%" + textoBusqueda + "%'",
                                    campos=self.camposTabla)
         else:
-            rows = SQL().BuscaTodo(tabla=self.tabla, cOrden=self.cOrden, limite=self.limite, campos=self.camposTabla)
+            rows = SQL().BuscaTodo(tabla=self.tabla,
+                                   cOrden=self.cOrden,
+                                   cFiltro=self.condiciones,
+                                   limite=self.limite,
+                                   campos=self.camposTabla)
+
         self.tableView.setColumnCount(len(self.campos))
         self.tableView.setRowCount(len(rows))
-        #self.tableView.horizontalHeader().setResizeMode(QHeaderView.ResizeToContents)
 
         for col in range(0, len(self.campos)):
             if self.campos[col] == self.campoRetorno:
@@ -101,6 +116,14 @@ class Ui_MainWindow(Formulario):
             fila += 1
         self.tableView.resizeRowsToContents()
         self.tableView.resizeColumnsToContents()
+
+    def keyPressEvent(self, event):
+        #cuando presiona tecla abajo selecciona la vista
+        if event.key() == QtCore.Qt.Key_Down:
+            self.tableView.setFocus()
+        # cuando presiona Enter ya sea del teclado numerico o del teclado normal selecciona el valor y cierra el form
+        elif event.key() == QtCore.Qt.Key_Enter or event.key() == QtCore.Qt.Key_Return:
+            self.btnAceptar.click()
 
 if __name__ == "__main__":
     import sys

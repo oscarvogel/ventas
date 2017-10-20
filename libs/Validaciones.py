@@ -12,19 +12,46 @@ from utiles.busqueda import Ui_MainWindow
 
 class Validaciones(EntradaTexto):
 
+    #tabla sobre la que se consulta
     tabla = ''
+
+    #orden para la busqueda si se presiona F2
     cOrden = ''
+
+    #campos que se van a mostrar
     campos = ''
+
+    #campos de la tabla, permite hacer uniones de campos
     camposTabla = None
+
+    #el campo que va a retornar la busqueda
     campoRetorno = None
+
+    #el campo del nombre
     campoNombre = None
+
+    #largo se utiliza para la cantidad de ingreso y para el zfill y rellanar con ceros
     largo = 0
+
+    #este es el widget que va a contener la descripcion del nombre
+    widgetNombre = None
+
+    #en caso de que necesitems hacer una condicion para mostrar los datos se utiliza esta propiedad
+    condiciones = ''
+
+    #indica si el valor obtenido es valido o no
+    valido = False
+
+    #cursor que guarda los valores obtenidos por el outfocus
+    cursor = None
 
     def __init__(self, parent=None, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
         font = QFont()
         font.setPointSizeF(12)
         self.setFont(font)
+        if self.largo != 0:
+            self.setMaxLength(self.largo)
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_F2:
@@ -32,13 +59,19 @@ class Validaciones(EntradaTexto):
             ventana.tabla = self.tabla
             ventana.cOrden = self.cOrden
             ventana.campos = self.campos
+            ventana.campoBusqueda = self.cOrden
             ventana.camposTabla = self.camposTabla
             ventana.campoRetorno = self.campoRetorno
+            ventana.condiciones = self.condiciones
             ventana.CargaDatos()
             ventana.exec_()
             if ventana.lRetval:
+                self.valido = True
                 self.setText(ventana.ValorRetorno)
                 QLineEdit.keyPressEvent(self, event)
+        elif event.key() == QtCore.Qt.Key_Enter:
+            if self.proximoWidget:
+                self.proximoWidget.setFocus()
         else:
             QLineEdit.keyPressEvent(self, event)
 
@@ -157,3 +190,7 @@ class CboUsuario(ComboSQL):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
+
+class Articulos(Validaciones):
+    tabla = "articulos"
