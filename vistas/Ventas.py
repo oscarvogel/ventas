@@ -8,6 +8,7 @@ from libs.Clases import Formulario, EtiquetaRoja, EntradaTexto, BotonCerrarFormu
 
 from modelos import Clientes, Articulo
 from utiles import Ventanas, Facturacion
+from utiles.busqueda import Ui_Busqueda
 from vistas import precio_articulo
 
 
@@ -27,8 +28,31 @@ class Ui_Dialog(Formulario):
         self.facturacion = Facturacion.facturacion()
 
     def keyPressEvent(self, event):
-        teclas = [QtCore.Qt.Key_Escape, QtCore.Qt.Key_Enter]
-        if event.key() not in teclas:
+        teclas = [QtCore.Qt.Key_Escape, QtCore.Qt.Key_Return, QtCore.Qt.Key_Enter]
+        if event.key() == QtCore.Qt.Key_F5:
+            _ventana = Ui_Busqueda()
+            _ventana.tabla = "clientes"
+            _ventana.cOrden = "nombre"
+            _ventana.campos = ['idCliente','Nombre','Domicilio']
+            _ventana.campoRetorno = 'idCliente'
+            _ventana.campoBusqueda = 'Nombre'
+            _ventana.CargaDatos()
+            _ventana.exec_()
+            if _ventana.lRetval:
+                self.lblCliente.setText(_ventana.campoRetornoDetalle)
+        elif event.key() == QtCore.Qt.Key_F2:
+            _ventana = Ui_Busqueda()
+            _ventana.tabla = "articulos"
+            _ventana.cOrden = "Nombre"
+            _ventana.campos = ['CodBarraArt', 'nombre', 'idArticulo', 'unidad', 'stock']
+            _ventana.campoRetorno = 'CodBarraArt'
+            _ventana.campoBusqueda = 'nombre'
+            _ventana.CargaDatos()
+            _ventana.exec_()
+            if _ventana.lRetval:
+                valor = self.lineEditCodBarra.text()
+                self.lineEditCodBarra.setText(valor + _ventana.ValorRetorno)
+        elif event.key() not in teclas:
             super(Formulario, self).keyPressEvent(event)
 
     def setupUi(self, Dialog):
@@ -46,7 +70,7 @@ class Ui_Dialog(Formulario):
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
 
-        self.tableView = Grilla(Dialog)
+        self.tableView = Grilla(Dialog, tamanio=10)
         self.tableView.setObjectName("tableView")
         self.gridLayout_3.addWidget(self.tableView, 0, 0, 1, 1)
         self.lineEditCodBarra = EntradaTexto(Dialog,
@@ -93,6 +117,7 @@ class Ui_Dialog(Formulario):
         self.gridLayout_2.addWidget(self.lblInfo, 0, 1, 1, 1)
         self.gridLayout_4.addLayout(self.gridLayout_2, 2, 0, 1, 2)
         self.horizontalLayout.addLayout(self.gridLayout_4)
+
 
         #self.retranslateUi(Dialog)
         Dialog.setTabOrder(self.lineEditCodBarra, self.tableView)
@@ -161,7 +186,6 @@ class Ui_Dialog(Formulario):
         else:
             articulo = codigobarra[codigobarra.find("*") + 1:]
             self.nCant = codigobarra[:codigobarra.find("*")]
-
 
         self.cursorart = Articulo.Articulo().BuscaUno(campo = 'CodBarraArt', valorbuscado=articulo)
         if not self.cursorart:

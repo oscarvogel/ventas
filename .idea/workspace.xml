@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f449cc0-6dc4-42ad-8704-ed80517ddb23" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/SqlComandos.py" afterPath="$PROJECT_DIR$/db/SqlComandos.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imagenes/logo.ico" afterPath="$PROJECT_DIR$/imagenes/logo.ico" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/Clases.py" afterPath="$PROJECT_DIR$/libs/Clases.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/Validaciones.py" afterPath="$PROJECT_DIR$/libs/Validaciones.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utiles/Funciones.py" afterPath="$PROJECT_DIR$/utiles/Funciones.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utiles/busqueda.py" afterPath="$PROJECT_DIR$/utiles/busqueda.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vistas/Ventas.py" afterPath="$PROJECT_DIR$/vistas/Ventas.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,8 +21,8 @@
       <file leaf-file-name="Clases.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libs/Clases.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
-              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+            <state relative-caret-position="-697">
+              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding>
                 <element signature="e#15#30#0" expanded="true" />
               </folding>
@@ -28,17 +30,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Ventas.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Ventas.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vistas/Ventas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="400">
+              <caret line="239" column="76" lean-forward="false" selection-start-line="239" selection-start-column="76" selection-end-line="239" selection-end-column="76" />
+              <folding>
+                <element signature="e#25#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SqlComandos.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Funciones.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utiles/Funciones.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="861">
+              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SqlComandos.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/SqlComandos.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="861">
@@ -61,11 +77,9 @@
       <file leaf-file-name="busqueda.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utiles/busqueda.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1989">
-              <caret line="121" column="45" lean-forward="false" selection-start-line="121" selection-start-column="45" selection-end-line="121" selection-end-column="45" />
-              <folding>
-                <marker date="1508438958427" expanded="true" signature="4909:4912" ph="..." />
-              </folding>
+            <state relative-caret-position="-714">
+              <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -100,16 +114,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ppal.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vistas/ppal.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -137,6 +141,10 @@
       <find>codbar</find>
       <find>entrad</find>
       <find>gra</find>
+      <find>keypress</find>
+      <find>nombre</find>
+      <find>grilla</find>
+      <find>entrada</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -146,7 +154,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/db/Conectar.py" />
-        <option value="$PROJECT_DIR$/utiles/Funciones.py" />
         <option value="$PROJECT_DIR$/modelos/Usuarios.py" />
         <option value="$PROJECT_DIR$/ui/abm.py" />
         <option value="$PROJECT_DIR$/libs/ABM.py" />
@@ -155,15 +162,17 @@
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/modelos/Articulos.py" />
         <option value="$PROJECT_DIR$/modelos/Articulo.py" />
-        <option value="$PROJECT_DIR$/libs/Clases.py" />
         <option value="$PROJECT_DIR$/vistas/precio_articulo.py" />
         <option value="$PROJECT_DIR$/modelos/Proveedores.py" />
         <option value="$PROJECT_DIR$/modelos/TipoIva.py" />
         <option value="$PROJECT_DIR$/modelos/Paramfac.py" />
         <option value="$PROJECT_DIR$/utiles/facturacion.py" />
         <option value="$PROJECT_DIR$/utiles/Facturacion.py" />
-        <option value="$PROJECT_DIR$/vistas/Ventas.py" />
         <option value="$PROJECT_DIR$/db/SqlComandos.py" />
+        <option value="$PROJECT_DIR$/utiles/busqueda.py" />
+        <option value="$PROJECT_DIR$/utiles/Funciones.py" />
+        <option value="$PROJECT_DIR$/libs/Clases.py" />
+        <option value="$PROJECT_DIR$/vistas/Ventas.py" />
       </list>
     </option>
   </component>
@@ -307,13 +316,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modelos/Paramfac.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modelos/TipoIva.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -325,9 +327,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1666">
           <caret line="102" column="48" lean-forward="true" selection-start-line="102" selection-start-column="8" selection-end-line="102" selection-end-column="48" />
-          <folding>
-            <marker date="1508438958427" expanded="true" signature="4909:4912" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -342,6 +342,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="20" column="29" lean-forward="false" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+          <folding>
+            <element signature="e#25#67#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -357,7 +360,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2822">
           <caret line="174" column="75" lean-forward="false" selection-start-line="174" selection-start-column="75" selection-end-line="174" selection-end-column="75" />
-          <folding />
+          <folding>
+            <element signature="e#25#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -403,9 +408,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1615">
           <caret line="99" column="90" lean-forward="true" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="90" />
-          <folding>
-            <marker date="1508438958427" expanded="true" signature="4909:4912" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -420,6 +423,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="20" column="29" lean-forward="false" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+          <folding>
+            <element signature="e#25#67#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -435,7 +441,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2992">
           <caret line="184" column="85" lean-forward="false" selection-start-line="184" selection-start-column="85" selection-end-line="184" selection-end-column="85" />
-          <folding />
+          <folding>
+            <element signature="e#25#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -481,7 +489,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2142">
           <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#25#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -489,9 +499,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
           <caret line="49" column="58" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="58" />
-          <folding>
-            <marker date="1508438958427" expanded="true" signature="4909:4912" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -521,13 +529,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utiles/Funciones.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -608,20 +609,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Clases.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-          <folding>
-            <element signature="e#15#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vistas/precio_articulo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="20" column="29" lean-forward="false" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+          <folding>
+            <element signature="e#25#67#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -660,28 +654,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utiles/busqueda.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="121" column="45" lean-forward="false" selection-start-line="121" selection-start-column="45" selection-end-line="121" selection-end-column="45" />
-          <folding>
-            <marker date="1508438958427" expanded="true" signature="4909:4912" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ui/ventas.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vistas/Ventas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -691,6 +667,52 @@
         <state relative-caret-position="861">
           <caret line="269" column="0" lean-forward="true" selection-start-line="269" selection-start-column="0" selection-end-line="269" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utiles/busqueda.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-714">
+          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/ppal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utiles/Funciones.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Clases.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-697">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/Ventas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="239" column="76" lean-forward="false" selection-start-line="239" selection-start-column="76" selection-end-line="239" selection-end-column="76" />
+          <folding>
+            <element signature="e#25#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

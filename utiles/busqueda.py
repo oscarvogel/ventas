@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QTableWidgetItem, QHeaderView
 from libs.Clases import Formulario, BotonCerrarFormulario, BotonAceptar, EntradaTexto
 from db.SqlComandos import SQL
 
-class Ui_MainWindow(Formulario):
+class Ui_Busqueda(Formulario):
 
     tabla = ""
     cOrden = ""
@@ -17,6 +17,8 @@ class Ui_MainWindow(Formulario):
     camposTabla = None
     campoRetorno = None
     colRetorno = 0
+    colBusqueda = 0
+    campoRetornoDetalle = ''
     condiciones = ''
 
     def __init__(self):
@@ -55,7 +57,7 @@ class Ui_MainWindow(Formulario):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Busqueda en " + self.tabla))
         self.btnAceptar.setText(_translate("Dialog", "Aceptar"))
         self.btnCancelar.setText(_translate("Dialog", "Cerrar"))
 
@@ -63,6 +65,7 @@ class Ui_MainWindow(Formulario):
         self.lRetval = True
         self.ValorRetorno = self.tableView.currentItem().text()
         self.ValorRetorno = self.tableView.item(self.tableView.currentRow(), self.colRetorno).text()
+        self.campoRetornoDetalle  = self.tableView.item(self.tableView.currentRow(), self.colBusqueda).text()
         print("Seleccionado {} columna {} fila {}".format(self.ValorRetorno,
                                                           self.tableView.currentColumn(),
                                                           self.tableView.currentRow()) )
@@ -72,9 +75,10 @@ class Ui_MainWindow(Formulario):
         item = self.tableView.itemAt(row, column)
 
         self.ValorRetorno = item.text()
-        print("Row %d and Column %d was clicked value %s" % (row, column, self.tableView.currentItem().text()))
+        print("Row {} and Column {} was clicked value {}".format(row, column, self.tableView.currentItem().text()))
 
     def CargaDatos(self):
+
         textoBusqueda = self.lineEdit.text()
 
         if self.condiciones and textoBusqueda:
@@ -96,32 +100,40 @@ class Ui_MainWindow(Formulario):
                                    campos=self.camposTabla)
         else:
             rows = SQL().BuscaTodo(tabla=self.tabla,
-                                   cOrden=self.cOrden,
                                    cFiltro=self.condiciones,
+                                   cOrden=self.cOrden,
                                    limite=self.limite,
                                    campos=self.camposTabla)
-
         self.tableView.setColumnCount(len(self.campos))
         self.tableView.setRowCount(len(rows))
+        #self.tableView.horizontalHeader().setResizeMode(QHeaderView.ResizeToContents)
 
         for col in range(0, len(self.campos)):
             if self.campos[col] == self.campoRetorno:
                 self.colRetorno = col
+            if self.campos[col] == self.campoBusqueda:
+                self.colBusqueda = col
+
             self.tableView.setHorizontalHeaderItem(col, QTableWidgetItem(self.campos[col].capitalize()))
 
         fila = 0
         for row in rows:
             for col in range(0, len(self.campos)):
-                self.tableView.setItem(fila, col, QTableWidgetItem(row[self.campos[col]]))
+                if isinstance(row[self.campos[col]], int):
+                    item = QTableWidgetItem(str(row[self.campos[col]]))
+                else:
+                    item = QTableWidgetItem(QTableWidgetItem(row[self.campos[col]]))
+
+                item.setFlags(QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled)
+                self.tableView.setItem(fila, col, item)
+
             fila += 1
         self.tableView.resizeRowsToContents()
         self.tableView.resizeColumnsToContents()
 
     def keyPressEvent(self, event):
-        #cuando presiona tecla abajo selecciona la vista
         if event.key() == QtCore.Qt.Key_Down:
             self.tableView.setFocus()
-        # cuando presiona Enter ya sea del teclado numerico o del teclado normal selecciona el valor y cierra el form
         elif event.key() == QtCore.Qt.Key_Enter or event.key() == QtCore.Qt.Key_Return:
             self.btnAceptar.click()
 
@@ -129,7 +141,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = Ui_Busqueda()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

@@ -7,7 +7,7 @@ from PyQt5.uic.properties import QtGui, QtWidgets
 
 from db.SqlComandos import SQL
 from libs.Clases import EntradaTexto, Etiqueta, ComboSQL
-from utiles.busqueda import Ui_MainWindow
+from utiles.busqueda import Ui_Busqueda
 
 
 class Validaciones(EntradaTexto):
@@ -55,7 +55,7 @@ class Validaciones(EntradaTexto):
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_F2:
-            ventana = Ui_MainWindow()
+            ventana = Ui_Busqueda()
             ventana.tabla = self.tabla
             ventana.cOrden = self.cOrden
             ventana.campos = self.campos
@@ -111,7 +111,7 @@ class ValidaCliente(Validaciones):
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_F2:
-            ventana = Ui_MainWindow()
+            ventana = Ui_Busqueda()
             ventana.tabla = "clientes"
             ventana.cOrden = "Nombre"
             ventana.campos = ['CLIENTE','NOMBRE','IDCLIENTE']
