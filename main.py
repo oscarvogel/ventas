@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication, QAction, qApp
 
 from db.Conectar import ConectarDB
 from utiles import Ventanas
-from utiles.Funciones import LeerConf
+from utiles.Funciones import LeerConf, GrabaConf, LeerIni
 from vistas.login import Login
 from vistas.ppal import Ui_MainWindow
 from utiles.Menu import GeneraMenu
@@ -26,6 +26,7 @@ class Ventana(Ui_MainWindow):
         self.ArmaToolBar()
         self.setWindowTitle("Sistema Ventas")
         self.showMaximized()
+        GrabaConf("InicioSistema", LeerIni("InicioSistema"))
 
     def Login(self):
         ventana = Login()

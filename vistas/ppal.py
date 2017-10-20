@@ -10,6 +10,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QAction, qApp
 
+from utiles.Funciones import icono_sistema
+
 
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
@@ -28,8 +30,8 @@ class Ui_MainWindow(QMainWindow):
         MainWindow.setStatusBar(self.statusbar)
 
         scriptDir = os.path.dirname(os.path.realpath(__file__))
-        icono = QIcon(scriptDir + "imagenes" + os.path.sep + "logo.ico")
-        self.setWindowIcon(icono)
+
+        self.setWindowIcon(icono_sistema())
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

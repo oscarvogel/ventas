@@ -7,7 +7,7 @@ from sys import argv
 
 from PyQt5.QtCore import QSettings
 
-EMPRESA = "fasa"
+EMPRESA = "servin"
 SISTEMA = "sistema"
 
 def GrabaConf(clave=None, valor=None):
@@ -48,7 +48,7 @@ def imagen(archivo):
 
 def icono_sistema():
 
-    cIcono = QtGui.QIcon(imagen("logo.ico"))
+    cIcono = QtGui.QIcon(imagen("market.ico"))
 
     return cIcono
 
@@ -57,7 +57,7 @@ def LeerIni(clave=None):
     retorno = ''
     Config = ConfigParser()
 
-    Config.read(ubicacion_sistema() + "fasa.ini")
+    Config.read(ubicacion_sistema() + "servin.ini")
     retorno = Config.get('param', clave)
 
     return retorno

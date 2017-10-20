@@ -2,6 +2,7 @@
 
 import winsound
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtGui import QPalette
 from PyQt5.QtWidgets import QTableWidgetItem
 
 from libs.Clases import Formulario, EtiquetaRoja, EntradaTexto, BotonCerrarFormulario, Etiqueta, Fecha, Grilla
@@ -20,12 +21,15 @@ class Ui_Dialog(Formulario):
     cursorart = None
     nCant = 0.0000
     nPrecio = 0.0000
+    lFactura = False
+    defaultColor = None
 
     def __init__(self):
         Formulario.__init__(self)
         self.setWindowTitle("Ventas")
         self.setupUi(self)
         self.facturacion = Facturacion.facturacion()
+        self.defaultColor = self.palette().color(QPalette.Background)
 
     def keyPressEvent(self, event):
         teclas = [QtCore.Qt.Key_Escape, QtCore.Qt.Key_Return, QtCore.Qt.Key_Enter]
@@ -40,6 +44,7 @@ class Ui_Dialog(Formulario):
             _ventana.exec_()
             if _ventana.lRetval:
                 self.lblCliente.setText(_ventana.campoRetornoDetalle)
+                self.cliente = _ventana.ValorRetorno
         elif event.key() == QtCore.Qt.Key_F2:
             _ventana = Ui_Busqueda()
             _ventana.tabla = "articulos"
@@ -52,6 +57,14 @@ class Ui_Dialog(Formulario):
             if _ventana.lRetval:
                 valor = self.lineEditCodBarra.text()
                 self.lineEditCodBarra.setText(valor + _ventana.ValorRetorno)
+        elif event.key() == QtCore.Qt.Key_F8:
+            self.lFactura = not self.lFactura
+            if self.lFactura:
+                self.setStyleSheet('background:orange')
+            else:
+                self.setStyleSheet('background:rgb({},{},{})'.format(self.defaultColor.red(),
+                                                                     self.defaultColor.green(),
+                                                                     self.defaultColor.blue()))
         elif event.key() not in teclas:
             super(Formulario, self).keyPressEvent(event)
 
@@ -165,7 +178,10 @@ class Ui_Dialog(Formulario):
             self.gridLayout.addWidget(self.lineEditPercepDGR, 5, 2, 1, 1)
 
     def ArmaCabeceraGrilla(self):
-        self.tableView.ArmaCabeceras(['Cant.', 'UN', 'Detalle', 'Unitario', 'Total'])
+        self.tableView.ArmaCabeceras(['Cant.', 'UN', 'Detalle', 'Unitario', 'Total',
+                                      'Neto', 'IVA', 'DGR', 'idArticulo'])
+        self.tableView.columnasOcultas = [5,6,7,8]
+        self.tableView.OcultaColumnas()
 
     def CargaPrecioArticulo(self):
         codigobarra = self.lineEditCodBarra.text()

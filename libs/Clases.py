@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QDialog, QPushButton, QDesktopWidget, QLabel, QLineE
 
 from db.SqlComandos import SQL
 from utiles import Funciones
-from utiles.Funciones import LeerConf
+from utiles.Funciones import icono_sistema
 
 
 class Formulario(QDialog):
@@ -38,6 +38,9 @@ class Formulario(QDialog):
 
         # top left of rectangle becomes top left of window centering it
         self.move(qr.topLeft())
+
+    def setIcono(self):
+        self.setWindowIcon(icono_sistema())
 
 class Boton(QPushButton):
 
