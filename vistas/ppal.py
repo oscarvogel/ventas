@@ -37,7 +37,7 @@ class Ui_MainWindow(QMainWindow):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Sistema de Aberturas"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Sistema de Ventas"))
 
     def InitMenu(self):
         menubar = self.menuBar()
