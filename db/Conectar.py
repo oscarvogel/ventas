@@ -9,7 +9,7 @@ import MySQLdb as mdb
 
 class ConectarDB(object):
 
-    servidor = LeerIni("ServerDB") or '192.168.0.200'
+    servidor = LeerIni("ServerDB")
     basedatos = LeerIni("BaseDatos")
     usuario = 'root'
     password = 'fasca'

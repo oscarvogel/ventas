@@ -81,5 +81,7 @@ if __name__ == "__main__":
     _ventana.show()
     if _ventana.Login():
         _ventana.InitMenu()
+        _ventana.statusBar().showMessage("Usuario " + LeerConf("usuario") + " Servidor " + LeerIni("ServerDB") +
+                                       " Base de datos " + LeerIni("BaseDatos"))
         # Ejecutar la aplicación
         sys.exit(app.exec_())

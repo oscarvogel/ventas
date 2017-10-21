@@ -3,7 +3,7 @@
 import winsound
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtGui import QPalette
-from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidgetItem, QStatusBar
 
 from libs.Clases import Formulario, EtiquetaRoja, EntradaTexto, BotonCerrarFormulario, Etiqueta, Fecha, Grilla
 
@@ -130,7 +130,6 @@ class Ui_Dialog(Formulario):
         self.gridLayout_2.addWidget(self.lblInfo, 0, 1, 1, 1)
         self.gridLayout_4.addLayout(self.gridLayout_2, 2, 0, 1, 2)
         self.horizontalLayout.addLayout(self.gridLayout_4)
-
 
         #self.retranslateUi(Dialog)
         Dialog.setTabOrder(self.lineEditCodBarra, self.tableView)

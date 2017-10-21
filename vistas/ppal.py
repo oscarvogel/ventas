@@ -8,7 +8,7 @@
 import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QAction, qApp
+from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QStatusBar
 
 from utiles.Funciones import icono_sistema
 
@@ -30,6 +30,8 @@ class Ui_MainWindow(QMainWindow):
         MainWindow.setStatusBar(self.statusbar)
 
         scriptDir = os.path.dirname(os.path.realpath(__file__))
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
 
         self.setWindowIcon(icono_sistema())
         self.retranslateUi(MainWindow)

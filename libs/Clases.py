@@ -6,7 +6,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QSize, Qt, QRegExp
 from PyQt5.QtGui import QFont, QIcon, QRegExpValidator
 from PyQt5.QtWidgets import QDialog, QPushButton, QDesktopWidget, QLabel, QLineEdit, QComboBox, QDateEdit, QTableView, \
-    QTableWidget, QTableWidgetItem, QSpinBox, QDoubleSpinBox, QCheckBox, QTabWidget, QCompleter
+    QTableWidget, QTableWidgetItem, QSpinBox, QDoubleSpinBox, QCheckBox, QTabWidget, QCompleter, QStatusBar
 
 from db.SqlComandos import SQL
 from utiles import Funciones
