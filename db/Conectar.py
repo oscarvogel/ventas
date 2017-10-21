@@ -1,13 +1,16 @@
 # coding=utf-8
 import pymysql, sys
+
+from utiles.Funciones import LeerIni
+
 pymysql.install_as_MySQLdb()
 
 import MySQLdb as mdb
 
 class ConectarDB(object):
 
-    servidor = '192.168.0.200'
-    basedatos = 'clarita'
+    servidor = LeerIni("ServerDB") or '192.168.0.200'
+    basedatos = LeerIni("BaseDatos")
     usuario = 'root'
     password = 'fasca'
     puerto = 3306
