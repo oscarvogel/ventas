@@ -1,18 +1,22 @@
 # coding=utf-8
 import pymysql
 
-from utiles import Ventanas
 from .Conectar import ConectarDB
+from utiles import Ventanas
 pymysql.install_as_MySQLdb()
 
 import MySQLdb as mdb
 
 class SQL(object):
 
+    CMD_INSERTAR = 2
+    CMD_ACTUALIZAR = 1
+
     db = None
     tabla, campo, campoclave = None, None, None
     query = ''
     ultimoId = 0
+    ultimoError = ''
 
     def Existe(self, valorbuscado = ''):
 
@@ -87,6 +91,7 @@ class SQL(object):
             cur.execute(sql)
             data = cur.fetchall()
         except mdb.Error as e:
+            self.ultimoError = e.args[0] + e.args[1]
             print(sql)
             #Ventanas.showAlert("Error", e.args[0])
         return data
@@ -102,6 +107,7 @@ class SQL(object):
         try:
             data = self.BuscaUno(campo=self.campoclave, valorbuscado=valorbuscado)
         except mdb.Error as e:
+            self.ultimoError = e.args[0] + e.args[1]
             Ventanas.showAlert("Error", e.args[0])
 
         return data
@@ -138,6 +144,7 @@ class SQL(object):
             cur.execute(self.query)
             data = cur.fetchall()
         except mdb.Error as e:
+            self.ultimoError = e.args[0] + e.args[1]
             Ventanas.showAlert("Error", "Error al realizar la consulta " + self.query)
         return data
 
@@ -177,6 +184,7 @@ class SQL(object):
             cur.execute(self.query)
             data = cur.fetchone()
         except mdb.Error as e:
+            self.ultimoError = e.args[0] + e.args[1]
             Ventanas.showAlert("Error", "Error al realizar la consulta {}".format(self.query))
 
         return data
@@ -196,7 +204,7 @@ class SQL(object):
 
         return self
 
-    def Insertar(self, fields, graba=False):
+    def Insertar(self, fields, graba=True):
         sql = 'insert into ' + self.tabla + '('
         sql += ', '.join(d for d in fields)
         sql += ') values('
@@ -212,15 +220,18 @@ class SQL(object):
 
             try:
                 cur.execute(sql, params)
+                self.db.commit()
                 cur.execute("SELECT LAST_INSERT_ID() as ultimo")
                 data = cur.fetchone()
                 self.ultimoId = data['ultimo']
             except mdb.Error as e:
+                self.ultimoError = "Error de insercion {} {}".format(e.args[0], e.args[1])
+                print(self.ultimoError)
                 Ventanas.showAlert("Error", "Error al insertar en {} sentencia {}".format(self.tabla, self.query))
 
         return sql, params
 
-    def Actualizar(self, fields, key, graba=False):
+    def Actualizar(self, fields, key, graba=True):
 
         query = 'update ' + self.tabla + ' set '
         query += ', '.join(d + ' = %s' for d in fields.keys() if d != key)
@@ -239,7 +250,10 @@ class SQL(object):
             cur = self.db.cursor(mdb.cursors.DictCursor)
             try:
                 cur.execute(query, params)
+                self.db.commit()
             except mdb.Error as e:
+                self.ultimoError = "Error al actualizar {} {}".format(e.args[0], e.args[1])
+                print(self.ultimoError)
                 Ventanas.showAlert("Error", "Error al actualizar en {} sentencia {}".format(self.tabla, self.query))
 
         return query, params
@@ -250,7 +264,8 @@ class SQL(object):
 
         cur = self.db.cursor(mdb.cursors.DictCursor)
         sql = "DESCRIBE {} {}".format(self.tabla, k.upper())
-        data = cur.execute(sql)
+        cur.execute(sql)
+        data = cur.fetchone()
         if fields[k] is None:
             if data['Type'].startswith('date'):
                 retvalue = '00000000'
@@ -267,3 +282,29 @@ class SQL(object):
     def __str__(self):
 
         return self.query
+
+    def Codifica(self, dato):
+        return "{}".format(bytearray(dato, 'latin-1', errors='ignore').decode('utf-8','ignore'))
+
+    def rawQuery(self, query):
+        if not self.db:
+            self.db = ConectarDB().GetDb()
+
+        cur = self.db.cursor(mdb.cursors.DictCursor)
+        self.query = query
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return data
+
+    def Delete(self, campovalor=''):
+        self.query = "DELETE FROM {}".format(self.tabla)
+        condicion = {self.campoclave:campovalor}
+        self.Where(condiciones=condicion)
+        self.rawQuery(self.query)
+
+    def DeleteAll(self, condiciones=''):
+        self.query = "DELETE FROM {}".format(self.tabla)
+        if condiciones:
+            self.Where(condiciones)
+        self.rawQuery(self.query)
